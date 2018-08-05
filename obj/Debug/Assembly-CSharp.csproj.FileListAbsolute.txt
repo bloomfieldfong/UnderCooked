@@ -1,0 +1,2 @@
+C:\Users\bloom\Documents\PruebaObjetos\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Users\bloom\Documents\PruebaObjetos\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

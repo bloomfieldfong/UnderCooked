@@ -53,7 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\Chopper.cs" />
+     <Compile Include="Assets\Script\Holder.cs" />
      <Compile Include="Assets\Script\Jugador.cs" />
+     <Compile Include="Assets\Script\MovableObject.cs" />
+     <Compile Include="Assets\Script\RecogerObjeto.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/Users/bloom/Documents/PruebaObjetos/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
