@@ -20,12 +20,5 @@ public class Holder : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "pina" || other.tag == "manza" || other.tag == "fresa") {
-            
-        }
-    }
-
+ 
     }
