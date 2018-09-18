@@ -12,6 +12,16 @@ TagManager:
   - fresa
   - pina
   - manza
+  - estufa
+  - pinaCortada
+  - manzanaCortada
+  - fresaCortada
+  - basura
+  - frasco
+  - FPina
+  - FManza
+  - FFresa
+  - Entrega
   layers:
   - Default
   - TransparentFX

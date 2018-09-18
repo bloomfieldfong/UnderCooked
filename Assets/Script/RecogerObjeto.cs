@@ -4,81 +4,124 @@ using UnityEngine;
 
 public class RecogerObjeto : MonoBehaviour {
 
-    public List<GameObject> muebles;
-    public GameObject player;
-    int i;
-    bool pickUp;
-    GameObject objectoRecogido;
-    GameObject ObjetosHijos;
-
-    public GameObject pina;
-    GameObject pinasd;
- 
-
-    public GameObject manzana;
-    GameObject manzanasd;
-
-    public GameObject fresa;
-    GameObject fresasd;
-
-    void Update() {
+	public List<GameObject> muebles;
+	public GameObject player;
 
 
-        if (Input.GetKeyDown("space"))
-        {
-            i++;
-            
-            if (muebles[0].gameObject.tag == "CajaPina")
-            {
-                pinasd = Instantiate(pina, new Vector3(-4.832875f, 1f, -1.83f), Quaternion.identity);
-                pinasd.transform.parent = muebles[0].transform;
-                objectoRecogido = pinasd;
-            }
+	GameObject objectoRecogido;
+	GameObject ObjetosHijos;
 
-            if (muebles[0].gameObject.tag == "CajaFresa")
-            {
-                fresasd = Instantiate(fresa, new Vector3(-4.912875f, 1.23f, -0.85f), Quaternion.identity);
-                fresasd.transform.parent = muebles[0].transform;
-                objectoRecogido = fresasd;
-            }
-            if (muebles[0].gameObject.tag == "CajaManza")
-            {
-                manzanasd = Instantiate(manzana, new Vector3(-9.47f, 1.07f, 1.5f), Quaternion.identity);
-                manzanasd.transform.parent = muebles[0].transform;
-                objectoRecogido = manzanasd;
-            }
-
-           
-        }
-
-        if (Input.GetKeyDown("c"))
-        {
-            ObjetosHijos = muebles[0].transform.GetChild(0).gameObject;
-            objectoRecogido.transform.parent = player.transform;
-        }
-
-        if (Input.GetKeyDown("x"))
-        {
-            objectoRecogido.transform.parent = muebles[0].transform;
-        }
-        }
-
-        
-    
+	public GameObject pina;
+	GameObject pinasd;
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        muebles.Add(other.gameObject);
-        if (muebles.Count > 1)
-        {
-            float distancia1 = Vector3.Distance(muebles[0].transform.position, transform.position);
-            float distancia2 = Vector3.Distance(muebles[1].transform.position, transform.position);
-        }
-    }
+	public GameObject manzana;
+	GameObject manzanasd;
 
-    private void OnTriggerExit(Collider other)
-    {
-        muebles.Clear();
-    }
+	public GameObject fresa;
+	GameObject fresasd;
+
+	public Material material;
+
+
+	public AudioClip recoger;
+	public AudioSource recogerSource;
+
+	public AudioClip botar;
+	public AudioSource botarSource;
+
+	bool entonces;
+
+	void Start(){
+		entonces = false;
+		botarSource.clip = botar;
+		recogerSource.clip = recoger;
+	}
+	void Update() {
+
+
+		if (Input.GetKeyDown("c"))
+		{
+	
+
+			if (muebles[0].gameObject.tag == "CajaPina")
+			{
+				pinasd = Instantiate(pina, new Vector3(-4.832875f, 1f, -1.83f), Quaternion.identity);
+				pinasd.transform.parent = player.transform;
+				ObjetosHijos= pinasd;
+			}
+
+			if (muebles[0].gameObject.tag == "CajaFresa")
+			{
+				fresasd = Instantiate(fresa, new Vector3(-4.912875f, 1.23f, -0.85f), Quaternion.identity);
+				fresasd.transform.parent = player.transform;
+				ObjetosHijos = fresasd;
+			}
+			if (muebles[0].gameObject.tag == "CajaManza")
+			{
+				manzanasd = Instantiate(manzana, new Vector3(-9.47f, 1.07f, 1.5f), Quaternion.identity);
+				manzanasd.transform.parent = player.transform;
+				ObjetosHijos = manzanasd;
+			}
+
+
+		}
+
+		if (player.transform.childCount > 5) {
+			entonces = false;
+
+		} 
+
+		if (player.transform.childCount < 6) {
+			entonces = true;
+
+		}
+
+		if (Input.GetKeyDown("space") && entonces == true )
+		{
+			ObjetosHijos = muebles[0].transform.GetChild(0).gameObject;
+			ObjetosHijos.transform.parent = player.transform;
+			botarSource.Play ();
+		
+		}
+
+		if (Input.GetKeyDown("space") && entonces == false)
+		{
+			ObjetosHijos.transform.parent = muebles[0].transform;
+			botarSource.Play ();
+		}
+
+	}
+
+	void cambiarColor(){
+		Material originalMateria = GetComponent<Renderer> ().material;
+		originalMateria = new Material (material);
+		Debug.Log ("keke");
+	}
+
+
+	private void OnTriggerEnter(Collider other)
+	{
+
+		if (other.tag == "Caja" || other.tag == "CajaManza" || other.tag == "CajaFresa" || other.tag == "CajaPina" || other.tag == "estufa"|| other.tag == "basura" || other.tag == "Entrega")
+		{
+			muebles.Add(other.gameObject);
+			cambiarColor ();
+		}
+
+
+		if (muebles.Count > 1)
+		{
+			float distancia1 = Vector3.Distance(muebles[0].transform.position, transform.position);
+			float distancia2 = Vector3.Distance(muebles[1].transform.position, transform.position);
+		}
+
+
+
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		muebles.Clear();
+	}
 }

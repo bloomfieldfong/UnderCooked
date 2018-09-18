@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour {
 
     public Text timerText;
     public float timeRemaining;  
+	public GameObject canva;
+	public GameObject jeje;
 	// Use this for initialization
 	void Start () {
 		
@@ -21,7 +24,10 @@ public class Timer : MonoBehaviour {
         
         timerText.text = "Tiempo: "+ minutos + ":" + segundos;
 
-     
+		if (timeRemaining < 0) {
+			canva.SetActive (true);
+			jeje.SetActive (false);
+		}
 	}
 
    
